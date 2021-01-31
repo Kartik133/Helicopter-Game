@@ -80,21 +80,18 @@ function draw() {
   drawSprites();
   
   if(gameState===PLAY) {
-	 if(keyDown("left_Arrow")) {
-       helicopterSprite.x = helicopterSprite.x - 5;
-	   packageBody.position.x = packageBody.position.x - 5;
-     }
+	 if (keyCode === LEFT_ARROW) { 
+		 helicopterSprite.x=helicopterSprite.x-20; 
+		 translation={x:-20,y:0};
+		 Matter.Body.translate(packageBody, translation);
+	} else if (keyCode === RIGHT_ARROW) { 
+		helicopterSprite.x=helicopterSprite.x+20; 
+		translation={x:20,y:0};
+	    Matter.Body.translate(packageBody, translation);
+	  } else if (keyCode === DOWN_ARROW) { 
+		  Matter.Body.setStatic(packageBody,false);
+		  gameState = END;
+	    } 
 
-     if(keyDown("right_Arrow")) {
-      helicopterSprite.x = helicopterSprite.x + 5;
-      packageBody.position.x = packageBody.position.x + 5;
-     }
-
-    if(keyDown("down_Arrow")) {
-	  Matter.Body.setStatic(packageBody,false);
-	  packageBody.position.x = packageBody.position.x;
-	  packageBody.position.y = packageBody.position.y;
-	  gameState = END;
-    }
   }
 }
